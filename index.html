@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Animes | MyAnimeList Analytics</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎌 Dashboard de Análise de Animes</h1>
+            <p>Análise de dados do MyAnimeList - Base de dados completa</p>
+        </header>
+
+        <div class="sidebar">
+            <div class="filters-card">
+                <h3>🔍 Filtros Principais</h3>
+                
+                <div class="filter-group">
+                    <label>Métrica:</label>
+                    <select id="metrica-select" class="filter-select">
+                        <option value="Nota">Nota</option>
+                        <option value="Avaliado por">Popularidade</option>
+                        <option value="Episodio">Episódios</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Ano:</label>
+                    <select id="ano-select" class="filter-select" multiple>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Gênero:</label>
+                    <select id="genero-select" class="filter-select" multiple>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Demografia:</label>
+                    <select id="demografia-select" class="filter-select" multiple>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Estúdio:</label>
+                    <select id="estudio-select" class="filter-select" multiple>
+                    </select>
+                </div>
+
+                <button onclick="aplicarFiltros()" class="filter-btn">Aplicar Filtros</button>
+                <button onclick="limparFiltros()" class="filter-btn secondary">Limpar Filtros</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="region-info">
+                <h2 id="metrica-atual">Métrica: Nota</h2>
+            </div>
+
+            <div class="section">
+                <h2>📊 Métricas Gerais</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">📅</div>
+                        <div class="metric-content">
+                            <h3>Ano com mais lançamentos</h3>
+                            <p id="metric-ano">-</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">⭐</div>
+                        <div class="metric-content">
+                            <h3>Nota média geral</h3>
+                            <p id="metric-nota">-</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🎭</div>
+                        <div class="metric-content">
+                            <h3>Gênero mais comum</h3>
+                            <p id="metric-genero">-</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🎬</div>
+                        <div class="metric-content">
+                            <h3>Estúdio mais ativo</h3>
+                            <p id="metric-estudio">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2>📈 Análise de Performance</h2>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>🎬 Performance por Estúdio</h3>
+                        <div id="chart-estudio" class="chart-container"></div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>📅 Evolução por Ano</h3>
+                        <div id="chart-ano" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2>🏆 Animes Mais Bem Avaliados</h2>
+                <div id="top-animes-content">
+                    <div class="chart-card full-width">
+                        <div id="chart-top-animes" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2>🎭 Comparador de Gêneros</h2>
+                <div id="genero-content">
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>📊 Distribuição por Gênero</h3>
+                            <div id="chart-comparacao-genero" class="chart-container"></div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>📈 Evolução Temporal</h3>
+                            <div id="chart-evolucao-genero" class="chart-container"></div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card full-width">
+                        <h3>🔄 Comparação com Outros Gêneros</h3>
+                        <div id="chart-comparacao-metricas" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📋 Dados Filtrados</h2>
+                <div class="data-card">
+                    <div id="tabela-dados"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading" class="loading">
+        <div class="loading-spinner"></div>
+        <p>Carregando dados de animes...</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
