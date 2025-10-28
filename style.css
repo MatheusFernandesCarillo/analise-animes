@@ -12,8 +12,8 @@
     --background: #fdf2f8;
     --surface: #ffffff;
     --surface-light: #fce7f3;
-    --text: #1f2937;
-    --text-secondary: #6b7280;
+    --text: #1a1a1a;
+    --text-secondary: #4a5568;
     --success: #4ade80;
     --warning: #fbbf24;
     --error: #f87171;
@@ -88,7 +88,7 @@ header p {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: var(--primary);
+    color: var(--text);
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -210,7 +210,7 @@ header p {
 
 .metric-content h3 {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--text);
     margin-bottom: 0.5rem;
 }
 
@@ -248,7 +248,7 @@ header p {
 
 .chart-card h3 {
     margin-bottom: 1rem;
-    color: var(--primary);
+    color: var(--text);
     font-size: 1.1rem;
 }
 
@@ -256,6 +256,76 @@ header p {
     height: 400px;
     width: 100%;
 }
+
+/* ESTILOS ESPECÍFICOS PARA OS GRÁFICOS PLOTLY */
+.chart-container .js-plotly-plot .plotly,
+.chart-container .js-plotly-plot .main-svg {
+    background: transparent !important;
+}
+
+/* Textos dos eixos e títulos */
+.chart-container .js-plotly-plot .xtitle,
+.chart-container .js-plotly-plot .ytitle,
+.chart-container .js-plotly-plot .g-xtitle,
+.chart-container .js-plotly-plot .g-ytitle {
+    fill: var(--text) !important;
+    font-weight: 600 !important;
+}
+
+/* Números dos eixos */
+.chart-container .js-plotly-plot .xtick text,
+.chart-container .js-plotly-plot .ytick text {
+    fill: var(--text) !important;
+    font-weight: 500 !important;
+}
+
+/* Linhas de grade */
+.chart-container .js-plotly-plot .gridpath {
+    stroke: #e5e7eb !important;
+    stroke-width: 1px !important;
+}
+
+/* Linhas dos eixos */
+.chart-container .js-plotly-plot .xaxis path,
+.chart-container .js-plotly-plot .yaxis path,
+.chart-container .js-plotly-plot .xaxis line,
+.chart-container .js-plotly-plot .yaxis line {
+    stroke: var(--text) !important;
+}
+
+/* Legendas */
+.chart-container .js-plotly-plot .legendtext {
+    fill: var(--text) !important;
+    font-weight: 500 !important;
+}
+
+/* Títulos dos gráficos */
+.chart-container .js-plotly-plot .g-gtitle {
+    fill: var(--text) !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+
+/* Tooltips - textos dentro dos popups */
+.chart-container .js-plotly-plot .hovertext,
+.chart-container .js-plotly-plot .hoverlabel {
+    fill: var(--text) !important;
+    color: var(--text) !important;
+}
+
+/* Textos nas barras quando existem */
+.chart-container .js-plotly-plot .text {
+    fill: var(--text) !important;
+    font-weight: 600 !important;
+}
+
+/* Anotações */
+.chart-container .js-plotly-plot .annotation-text {
+    fill: var(--text) !important;
+    font-weight: 500 !important;
+}
+
+/* FIM DOS ESTILOS DOS GRÁFICOS */
 
 .stats-container {
     margin-top: 1.5rem;
@@ -351,7 +421,7 @@ header p {
 
 .table-info {
     margin-bottom: 1rem;
-    color: var(--text-secondary);
+    color: var(--text);
     font-size: 0.9rem;
     padding: 0.5rem;
     background: var(--surface-light);
@@ -362,7 +432,7 @@ header p {
 .no-data {
     text-align: center;
     padding: 3rem;
-    color: var(--text-secondary);
+    color: var(--text);
     font-size: 1.1rem;
 }
 
