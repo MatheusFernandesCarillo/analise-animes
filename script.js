@@ -9,8 +9,9 @@ async function carregarDados() {
     mostrarLoading(true);
     
     try {
-        const response = await fetch('https://raw.githubusercontent.com/MatheusFernandesCarillo/analise-animes/refs/heads/main/animes_limpo.csv');
+        const response = await fetch('https://matheusfernandescarillo.github.io/analise-animes/animes_limpo.csv');
         
+ 
         if (!response.ok) throw new Error('Não foi possível carregar os dados');
         
         const csvText = await response.text();
@@ -22,8 +23,25 @@ async function carregarDados() {
         mostrarLoading(false);
         
     } catch (error) {
+        console.error('Erro ao carregar dados:', error);
+        await carregarDadosLocalmente();
+    }
+}
+
+async function carregarDadosLocalmente() {
+    try {
+        const response = await fetch('./data/animes_limpo.csv');
+        if (response.ok) {
+            const csvText = await response.text();
+            dadosCompletos = processarCSV(csvText);
+            dadosFiltrados = [...dadosCompletos];
+            prepararFiltros();
+            atualizarDashboard();
+        }
+    } catch (localError) {
+        alert('Erro ao carregar dados. Tente recarregar a página mais tarde.');
+    } finally {
         mostrarLoading(false);
-        alert('Erro ao carregar: ' + error.message);
     }
 }
 
