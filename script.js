@@ -11,7 +11,6 @@ async function carregarDados() {
     try {
         const response = await fetch('https://matheusfernandescarillo.github.io/analise-animes/animes_limpo.csv');
         
- 
         if (!response.ok) throw new Error('Não foi possível carregar os dados');
         
         const csvText = await response.text();
@@ -282,6 +281,38 @@ function atualizarGraficos(metrica) {
         document.getElementById('chart-comparacao-metricas').innerHTML = '<div class="no-data">Nenhum dado disponível</div>';
         return;
     }
+
+    // CONFIGURAÇÃO DE CORES PARA TEXTOS ESCUROS
+    const darkTextConfig = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { 
+            color: '#1a1a1a',
+            family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
+            size: 12
+        },
+        xaxis: {
+            color: '#1a1a1a',
+            gridcolor: '#e5e7eb',
+            linecolor: '#1a1a1a',
+            tickfont: { color: '#1a1a1a' },
+            title: { font: { color: '#1a1a1a' } }
+        },
+        yaxis: {
+            color: '#1a1a1a',
+            gridcolor: '#e5e7eb',
+            linecolor: '#1a1a1a',
+            tickfont: { color: '#1a1a1a' },
+            title: { font: { color: '#1a1a1a' } }
+        },
+        title: {
+            font: { 
+                color: '#1a1a1a',
+                size: 16,
+                family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+            }
+        }
+    };
     
     const estudiosData = {};
     let estudiosValidos = 0;
@@ -337,22 +368,20 @@ function atualizarGraficos(metrica) {
         };
 
         const layoutEstudios = {
+            ...darkTextConfig,
             title: {
                 text: '🎬 TOP 10 ESTÚDIOS - NOTA MÉDIA',
-                font: { size: 16, color: '#f0f0f0' }
+                font: { size: 16, color: '#1a1a1a' }
             },
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            font: { color: '#f0f0f0', size: 12 },
             xaxis: { 
+                ...darkTextConfig.xaxis,
                 title: 'Estúdio',
                 tickangle: -45,
-                gridcolor: '#374151',
-                tickfont: { size: 10 }
+                tickfont: { size: 10, color: '#1a1a1a' }
             },
             yaxis: { 
+                ...darkTextConfig.yaxis,
                 title: 'Nota Média', 
-                gridcolor: '#374151', 
                 range: [0, 10],
                 tickformat: '.2f'
             },
@@ -417,22 +446,20 @@ function atualizarGraficos(metrica) {
         };
 
         const layoutAnos = {
+            ...darkTextConfig,
             title: {
                 text: '📅 Evolução da Nota Média por Ano',
-                font: { size: 16, color: '#f0f0f0' }
+                font: { size: 16, color: '#1a1a1a' }
             },
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            font: { color: '#f0f0f0' },
             xaxis: { 
+                ...darkTextConfig.xaxis,
                 title: 'Ano', 
-                gridcolor: '#374151',
                 tickmode: 'linear',
                 dtick: 5
             },
             yaxis: { 
+                ...darkTextConfig.yaxis,
                 title: 'Nota Média', 
-                gridcolor: '#374151', 
                 range: [rangeMin, rangeMax],
                 tickformat: '.2f'
             },
@@ -505,30 +532,23 @@ function atualizarGraficos(metrica) {
         };
 
         const layoutGenero = {
+            ...darkTextConfig,
             title: {
                 text: '📊 Distribuição por Gênero - Top 15',
-                font: { size: 16, color: '#f0f0f0' }
+                font: { size: 16, color: '#1a1a1a' }
             },
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            font: { color: '#f0f0f0', size: 12 },
             xaxis: { 
-                title: 'Quantidade de Animes',
-                gridcolor: '#374151'
+                ...darkTextConfig.xaxis,
+                title: 'Quantidade de Animes'
             },
             yaxis: { 
+                ...darkTextConfig.yaxis,
                 title: '',
-                gridcolor: '#374151',
                 automargin: true,
-                tickfont: { size: 11 }
+                tickfont: { size: 11, color: '#1a1a1a' }
             },
             margin: { t: 60, r: 30, b: 60, l: 150 },
-            height: 500,
-            hoverlabel: {
-                bgcolor: 'rgba(30, 30, 30, 0.9)',
-                bordercolor: '#bb86fc',
-                font: { color: 'white' }
-            }
+            height: 500
         };
 
         Plotly.react('chart-comparacao-genero', [traceGenero], layoutGenero);
@@ -609,22 +629,20 @@ function atualizarGraficos(metrica) {
         const rangeMaxEvolucao = Math.min(10, notaMaxEvolucao + 0.3);
         
         const layoutEvolucao = {
+            ...darkTextConfig,
             title: {
                 text: '📈 Evolução Temporal - Top 5 Gêneros',
-                font: { size: 16, color: '#f0f0f0' }
+                font: { size: 16, color: '#1a1a1a' }
             },
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            font: { color: '#f0f0f0', size: 12 },
             xaxis: { 
+                ...darkTextConfig.xaxis,
                 title: 'Ano',
-                gridcolor: '#374151',
                 tickmode: 'linear',
                 dtick: 5
             },
             yaxis: { 
+                ...darkTextConfig.yaxis,
                 title: 'Nota Média',
-                gridcolor: '#374151',
                 range: [rangeMinEvolucao, rangeMaxEvolucao],
                 tickformat: '.2f'
             },
@@ -634,14 +652,10 @@ function atualizarGraficos(metrica) {
                 y: -0.2,
                 x: 0.5,
                 xanchor: 'center',
-                bgcolor: 'rgba(0,0,0,0.7)',
-                bordercolor: '#374151',
-                borderwidth: 1
-            },
-            hoverlabel: {
-                bgcolor: 'rgba(30, 30, 30, 0.9)',
-                bordercolor: '#bb86fc',
-                font: { color: 'white' }
+                bgcolor: 'rgba(255, 255, 255, 0.9)',
+                bordercolor: '#e5e7eb',
+                borderwidth: 1,
+                font: { color: '#1a1a1a' }
             }
         };
 
@@ -717,24 +731,22 @@ function atualizarGraficos(metrica) {
         });
         
         const layoutRadar = {
+            ...darkTextConfig,
             title: {
                 text: '🔄 Comparação entre Gêneros - Múltiplas Métricas',
-                font: { size: 16, color: '#f0f0f0' }
+                font: { size: 16, color: '#1a1a1a' }
             },
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            font: { color: '#f0f0f0', size: 12 },
             polar: {
                 bgcolor: 'rgba(0,0,0,0)',
                 radialaxis: {
                     visible: true,
                     range: [0, 10],
-                    gridcolor: '#374151',
-                    tickfont: { color: '#f0f0f0' }
+                    gridcolor: '#e5e7eb',
+                    tickfont: { color: '#1a1a1a' }
                 },
                 angularaxis: {
-                    gridcolor: '#374151',
-                    tickfont: { color: '#f0f0f0' }
+                    gridcolor: '#e5e7eb',
+                    tickfont: { color: '#1a1a1a' }
                 }
             },
             margin: { t: 60, r: 30, b: 60, l: 80 },
@@ -743,15 +755,10 @@ function atualizarGraficos(metrica) {
                 y: -0.1,
                 x: 0.5,
                 xanchor: 'center',
-                bgcolor: 'rgba(0,0,0,0.7)',
-                bordercolor: '#374151',
+                bgcolor: 'rgba(255, 255, 255, 0.9)',
+                bordercolor: '#e5e7eb',
                 borderwidth: 1,
-                font: { color: '#f0f0f0' }
-            },
-            hoverlabel: {
-                bgcolor: 'rgba(30, 30, 30, 0.9)',
-                bordercolor: '#bb86fc',
-                font: { color: 'white' }
+                font: { color: '#1a1a1a' }
             }
         };
 
@@ -789,21 +796,19 @@ function atualizarGraficos(metrica) {
         };
 
         const layoutTopAnimes = {
+            ...darkTextConfig,
             title: {
                 text: '⭐ Top 15 Animes - Melhores Notas',
-                font: { size: 16, color: '#f0f0f0' }
+                font: { size: 16, color: '#1a1a1a' }
             },
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            font: { color: '#f0f0f0' },
             xaxis: { 
+                ...darkTextConfig.xaxis,
                 tickangle: -45, 
-                gridcolor: '#374151',
-                tickfont: { size: 10 }
+                tickfont: { size: 10, color: '#1a1a1a' }
             },
             yaxis: { 
+                ...darkTextConfig.yaxis,
                 title: 'Nota', 
-                gridcolor: '#374151', 
                 range: [0, 10],
                 tickformat: '.2f'
             },
